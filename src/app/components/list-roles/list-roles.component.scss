@@ -1,0 +1,78 @@
+mat-card-header {
+  .role-list-header {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+
+    h6{
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+  }
+}
+
+
+table {
+  width: 100%;
+}
+
+tr.role-detail-row {
+  height: 0;
+}
+
+tr.role-row:not(.role-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.role-row:not(.role-expanded-row):active {
+  background: #efefef;
+}
+
+.role-row td {
+  border-bottom-width: 0;
+}
+
+.role-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.role-description {
+  width: 100%;
+
+  h6 {
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+
+  mat-card {
+    margin: 20px;
+    padding: 10px 20px;
+  }
+}
+
+
+mat-paginator{
+  margin-top: 3rem;
+}
+
+.mat-mdc-row:nth-child(2n+1){
+  background-color: #E6FCCA;
+}
+.mat-mdc-row:not(:nth-child(4n+1)){
+  background-color:#FFF;
+}
+
+tr.role-row:not(.role-expanded-row):hover
+{
+  background-color: #E6FCCA;
+}
+
+
+.fw-500{
+  font-weight: 500;
+}

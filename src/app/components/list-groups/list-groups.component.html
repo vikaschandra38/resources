@@ -1,0 +1,81 @@
+<mat-card>
+  <mat-card-header>
+    <div class="group-list-header">
+      <h6>Group List</h6>
+      <button mat-flat-button color="primary" [routerLink]="['create']">Create Group</button>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows  matSort matSortActive="groupId"
+    matSortDisableClear matSortDirection="asc" class="mat-elevation-z8">
+      @for (column of columnsToDisplay; track column.columnName) {
+      <ng-container matColumnDef="{{column.columnName}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.columnLabel}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column.columnName]}} </td>
+      </ng-container>
+      }
+
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button color="primary" (click)="$event.stopPropagation()">
+            Edit
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="$event.stopPropagation()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button aria-label="expand row"
+            (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+            @if (expandedElement === element) {
+            <mat-icon>keyboard_arrow_up</mat-icon>
+            } @else {
+            <mat-icon>keyboard_arrow_down</mat-icon>
+            }
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+          <div class="group-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="group-description">
+              <mat-card class="mat-elevation-z19">
+                <h6>Group Members ({{element.groupMembers.length}})</h6>
+                <ul role="list" class="group-members">
+                  @for (groupMember of element.groupMembers; track $index; let last = $last) {
+                  <li role="listitem">{{groupMember}}</li>
+                  }
+                </ul>
+              </mat-card>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="group-row"
+        [class.group-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="group-detail-row"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of application list">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>
