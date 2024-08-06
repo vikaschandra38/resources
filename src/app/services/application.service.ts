@@ -154,12 +154,17 @@ export class ApplicationService {
   http: HttpClient = inject(HttpClient);
 
   getApplications() {
-    return of(APPLICATIONS_DATA);
-    // return this.http.get<Application[]>(environment.apiUrl + '/api/applications/all');
+    // return of(APPLICATIONS_DATA);
+    return this.http.get<Application[]>(environment.apiUrl + '/api/applications/all');
   }
 
   createApplication(application: Application) {
-    return this.http.post(environment.apiUrl + '/api/applications', application);
+    // Convert form data to a JSON string
+    const applicationJSONString = JSON.stringify(application);
+
+    // Encode the JSON string in Base64
+    const base64String = btoa(applicationJSONString);
+    return this.http.post(environment.apiUrl + '/api/applications', base64String);
   }
 
   updateApplication(application: Application) {
