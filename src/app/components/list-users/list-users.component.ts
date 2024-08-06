@@ -30,7 +30,7 @@ import { MatInputModule } from '@angular/material/input';
     ]),
   ],
   imports: [MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatCardModule, RouterLink, MatPaginatorModule,
-    MatSortModule, MatChipsModule, ListHeaderComponent,MatFormFieldModule, MatInputModule],
+    MatSortModule, MatChipsModule, ListHeaderComponent, MatFormFieldModule, MatInputModule],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.scss'
 })
@@ -60,7 +60,8 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
       columnLabel: 'Phone No',
     },
   ];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay.map(column => column.columnName), 'edit', 'delete', 'expand'];
+  tableActionColumns = []; // ['edit', 'delete'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay.map(column => column.columnName), ...this.tableActionColumns, 'expand'];
   expandedElement: User | null = null;
 
   usersService: UsersService = inject(UsersService);

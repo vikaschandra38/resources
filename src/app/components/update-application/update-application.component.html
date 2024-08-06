@@ -1,1 +1,10 @@
-<p>update-application works!</p>
+<div class="sidenav-content-card">
+  <mat-card>
+    <mat-card-title>
+      <app-create-header [title]="'Update Application'" [routerPath]="['/', 'applications']"></app-create-header>
+    </mat-card-title>
+    <mat-card-content>
+      <app-application-form (formSubmit)="onUpdateApplication($event)"></app-application-form>
+    </mat-card-content>
+  </mat-card>
+</div>

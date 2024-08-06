@@ -19,7 +19,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/create-application/create-application.component').then(m => m.CreateApplicationComponent)
       },
       {
-        path: 'edit/:id',
+        path: 'edit/:applicationId',
         loadComponent: () => import('./components/update-application/update-application.component').then(m => m.UpdateApplicationComponent)
       },
     ]

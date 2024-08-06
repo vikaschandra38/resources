@@ -9,35 +9,23 @@ import { CommonModule } from '@angular/common';
 import { ApplicationService } from '../../services/application.service';
 import { Router } from '@angular/router';
 import { CreateHeaderComponent } from "../../shared/create-header/create-header.component";
+import { ApplicationFormComponent } from "../../shared/application-form/application-form.component";
+import { Application } from '../../models/Application';
 
 @Component({
   selector: 'app-create-application',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, CreateHeaderComponent],
+  imports: [MatCardModule, CreateHeaderComponent, ApplicationFormComponent],
   templateUrl: './create-application.component.html',
   styleUrl: './create-application.component.scss'
 })
 export class CreateApplicationComponent {
   applicationService: ApplicationService = inject(ApplicationService);
   router: Router = inject(Router);
-  fb: FormBuilder = new FormBuilder();
 
-  applicationForm: FormGroup = this.fb.group({
-    applicationName: new FormControl<string>('', Validators.required),
-    accessControlModel: new FormControl<string>('', Validators.required),
-    policy: new FormControl<string>('', Validators.required),
-    others: new FormControl<string>('', Validators.required),
-  });
-
-  constructor () { }
-
-  onCreateApplication() {
-    this.applicationService.createApplication(this.applicationForm.value).subscribe(res => {
+  onCreateApplication(application: Application) {
+    this.applicationService.createApplication(application).subscribe(res => {
       this.router.navigateByUrl('/applications');
     });
-  }
-
-  onReset() {
-    this.applicationForm.reset();
   }
 }

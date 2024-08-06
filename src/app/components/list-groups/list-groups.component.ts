@@ -62,7 +62,8 @@ export class ListGroupsComponent implements OnInit, AfterViewInit {
       columnLabel: 'Email',
     },
   ];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay.map(column => column.columnName), 'edit', 'delete', 'expand'];
+  tableActionColumns = []; //['edit', 'delete'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay.map(column => column.columnName), ...this.tableActionColumns, 'expand'];
   expandedElement: Group | null = null;
 
   groupsService: GroupsService = inject(GroupsService);

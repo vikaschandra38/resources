@@ -1,7 +1,7 @@
 <div class="sidenav-content-card">
   <mat-card>
     <mat-card-title>
-      <app-create-header [title]="'Create Group'"></app-create-header>
+      <app-create-header [title]="'Create Group'" [routerPath]="['/', 'groups']"></app-create-header>
     </mat-card-title>
     <mat-card-content>
       <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">

@@ -16,6 +16,7 @@ import { JsonPipe } from '@angular/common';
 import { ListHeaderComponent } from "../../shared/list-header/list-header.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-list-application',
@@ -37,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class ListApplicationComponent implements OnInit, AfterViewInit {
   router: Router = inject(Router);
+  dialogService = inject(DialogService);
 
   dataSource = new MatTableDataSource<Application>([]);
   columnsToDisplay = [
@@ -72,17 +74,24 @@ export class ListApplicationComponent implements OnInit, AfterViewInit {
 
   editApplication(event: Event, application: Application) {
     event.stopPropagation();
-    this.router.navigate(['/applications/edit', application.applicationId]);
+    this.router.navigate(['/applications/edit', application.applicationId], {
+      state: {
+        application: application
+      }
+    });
   }
 
   deleteApplication(event: Event, application: Application) {
     event.stopPropagation();
-    this.applicationService.deleteApplication(application.applicationId!).subscribe(res => {
-      this.dataSource.data = this.dataSource.data.filter(application => application.applicationId !== res.applicationId);
-    });
+    this.dialogService.launchDialog().afterClosed().subscribe(result => {
+      if (!result) return;
+      this.applicationService.deleteApplication(application.applicationId!).subscribe(res => {
+        this.dataSource.data = this.dataSource.data.filter(application => application.applicationId !== res.applicationId);
+      });
+    })
   }
 
-  parseString(others: string){
+  parseString(others: string) {
     return JSON.parse(others);
   }
 

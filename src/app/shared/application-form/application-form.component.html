@@ -1,0 +1,46 @@
+<form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+  <p>Application Info: </p>
+  <mat-form-field appearance="outline">
+    <mat-label>Application Name</mat-label>
+    <input matInput formControlName="applicationName">
+    <mat-error *ngIf="applicationForm.get('applicationName')?.hasError('required')">
+      Application Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <br />
+  <br />
+
+  <div class="form-group">
+
+    <mat-form-field appearance="outline" class="full-width accesscontrol">
+      <mat-label>Access Control Model</mat-label>
+      <textarea matInput formControlName="accessControlModel" rows="10"></textarea>
+      <mat-error *ngIf="applicationForm.get('accessControlModel')?.hasError('required')">
+        Access Control Model is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width others">
+      <mat-label>Others</mat-label>
+      <textarea matInput formControlName="others" rows="10"></textarea>
+      <mat-error *ngIf="applicationForm.get('others')?.hasError('required')">
+        Others is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width policy">
+      <mat-label>Policy</mat-label>
+      <textarea matInput formControlName="policies" rows="23"></textarea>
+      <mat-error *ngIf="applicationForm.get('policies')?.hasError('required')">
+        Policy is required
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div class="button-group">
+    <button type="button" mat-raised-button color="warn" (click)="onReset()">Reset</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!applicationForm.valid">Submit</button>
+  </div>
+</form>

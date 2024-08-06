@@ -9,6 +9,9 @@
   --mat-card-title-text-font: "Poppins", sans-serif;
   --mat-toolbar-title-text-font: "Poppins", sans-serif;
   --mat-toolbar-title-text-weight: 500;
+  --mat-table-header-headline-weight: 600;
+  --mdc-outlined-text-field-outline-width: 2px;
+  // --mdc-outlined-text-field-label-text-weight: 600;
 }
 
 html,
@@ -31,6 +34,7 @@ body {
 .sidenav-content-card {
   mat-card {
     background-color: #FFF;
+    overflow: auto;
 
     mat-card-title {
       margin-bottom: 20px;

@@ -1,0 +1,20 @@
+.form-group{
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    "accesscontrol policy"
+    "others policy";
+  grid-gap: 20px;
+}
+
+.accesscontrol{
+  grid-area: accesscontrol;
+}
+
+.policy{
+  grid-area: policy;
+}
+
+.others{
+  grid-area: others;
+}

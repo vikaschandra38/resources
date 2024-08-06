@@ -52,7 +52,8 @@ export class ListRolesComponent  implements OnInit, AfterViewInit {
       columnLabel: 'Description',
     }
   ];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay.map(column => column.columnName), 'edit', 'delete', 'expand'];
+  tableActionColumns = []; //['edit', 'delete'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay.map(column => column.columnName), ...this.tableActionColumns, 'expand'];
   expandedElement: Role | null = null;
 
   rolesService: RolesService = inject(RolesService);
