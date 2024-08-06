@@ -9,9 +9,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { RolesService } from '../../services/roles.service';
 import { Role } from '../../models/Role';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ListHeaderComponent } from "../../shared/list-header/list-header.component";
 
 @Component({
   selector: 'app-list-roles',
@@ -27,11 +30,13 @@ import { Role } from '../../models/Role';
     ]),
   ],
   imports: [MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatCardModule, RouterLink, MatPaginatorModule,
-    MatSortModule, MatChipsModule],
+    MatSortModule, MatChipsModule, MatFormFieldModule, MatInputModule, ListHeaderComponent],
   templateUrl: './list-roles.component.html',
   styleUrl: './list-roles.component.scss'
 })
 export class ListRolesComponent  implements OnInit, AfterViewInit {
+  router: Router = inject(Router);
+
   dataSource = new MatTableDataSource<Role>([]);;
   columnsToDisplay = [
     {
@@ -67,5 +72,15 @@ export class ListRolesComponent  implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }
+  }
+
+  editRole(event: Event, role: Role) {
+    event.stopPropagation();
+    this.router.navigate(['/roles/edit', role.roleId]);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

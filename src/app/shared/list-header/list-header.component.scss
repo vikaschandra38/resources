@@ -1,0 +1,14 @@
+
+.list-header {
+  // width: 100%;
+  // margin-bottom: 20px;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+
+  h6{
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}

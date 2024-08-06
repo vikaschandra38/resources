@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
+  --mat-sidenav-content-background-color: #f2f3f3;
+  --mat-sidenav-container-background-color: #fff;
+  --mat-sidenav-content-text-color: #15191e;
+  --mdc-elevated-card-container-color: #fff;
   --mat-table-row-item-container-height: 42px;
+  --mat-card-title-text-font: "Poppins", sans-serif;
+  --mat-toolbar-title-text-font: "Poppins", sans-serif;
+  --mat-toolbar-title-text-weight: 500;
 }
 
 html,
@@ -11,7 +18,7 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .flex-between {
@@ -23,15 +30,57 @@ body {
 
 .sidenav-content-card {
   mat-card {
-    background-color: #fdfdfd;
+    background-color: #FFF;
 
     mat-card-title {
       margin-bottom: 20px;
-      padding: 20px;
-
-      h6 {
-        margin-bottom: 0;
-      }
+      padding: 15px;
+      background-color: #fafafa;
+      color: #15191e;
+      font-size: 1.2rem;
+      font-weight: 500;
     }
   }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-group {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+.table-row td {
+  border-bottom-width: 0;
+}
+
+.mat-mdc-row:nth-child(2n+1) {
+  background-color: #fafafa;
+}
+
+.mat-mdc-row:not(:nth-child(n)) {
+  background-color: #f7f7f7;
+}
+
+tr.table-row:hover {
+  background-color: #fafafa;
+}
+
+
+tr.table-detail-row {
+  height: 0;
+}
+
+tr.table-row:not(.table-expanded-row):hover {
+  background: rgb(255, 254, 254);
+}
+
+tr.table-row:not(.table-expanded-row):active {
+  background: #fefefe;
 }

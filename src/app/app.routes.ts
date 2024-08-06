@@ -19,7 +19,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/create-application/create-application.component').then(m => m.CreateApplicationComponent)
       },
       {
-        path: 'update',
+        path: 'edit/:id',
         loadComponent: () => import('./components/update-application/update-application.component').then(m => m.UpdateApplicationComponent)
       },
     ]
@@ -37,7 +37,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/create-roles/create-roles.component').then(m => m.CreateRolesComponent)
       },
       {
-        path: 'update',
+        path: 'edit/:id',
         loadComponent: () => import('./components/update-roles/update-roles.component').then(m => m.UpdateRolesComponent)
       },
     ]
@@ -55,7 +55,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/create-groups/create-groups.component').then(m => m.CreateGroupsComponent)
       },
       {
-        path: 'update',
+        path: 'edit/:id',
         loadComponent: () => import('./components/update-groups/update-groups.component').then(m => m.UpdateGroupsComponent)
       },
     ]
@@ -73,7 +73,7 @@ export const routes: Routes = [
         loadComponent: () => import('./components/create-users/create-users.component').then(m => m.CreateUsersComponent)
       },
       {
-        path: 'update',
+        path: 'edit/:id',
         loadComponent: () => import('./components/update-users/update-users.component').then(m => m.UpdateUsersComponent)
       },
     ]

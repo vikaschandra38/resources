@@ -1,0 +1,16 @@
+.formfeild-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-group{
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}

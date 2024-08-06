@@ -1,0 +1,6 @@
+<div class="list-header">
+  <h6>{{title()}}</h6>
+  @if(isVisible()){
+  <button mat-flat-button color="primary" [routerLink]="['create']">{{buttonLabel()}}</button>
+  }
+</div>

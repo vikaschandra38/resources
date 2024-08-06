@@ -7,12 +7,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { JsonPipe } from '@angular/common';
+import { ListHeaderComponent } from "../../shared/list-header/list-header.component";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-list-application',
@@ -28,12 +31,14 @@ import { JsonPipe } from '@angular/common';
     ]),
   ],
   imports: [MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatCardModule, RouterLink, MatPaginatorModule,
-    MatSortModule, MatChipsModule, JsonPipe],
+    MatSortModule, MatChipsModule, JsonPipe, ListHeaderComponent, MatFormFieldModule, MatInputModule],
   templateUrl: './list-application.component.html',
   styleUrl: './list-application.component.scss'
 })
 export class ListApplicationComponent implements OnInit, AfterViewInit {
-  dataSource = new MatTableDataSource<Application>([]);;
+  router: Router = inject(Router);
+
+  dataSource = new MatTableDataSource<Application>([]);
   columnsToDisplay = [
     {
       columnName: 'applicationId',
@@ -43,13 +48,8 @@ export class ListApplicationComponent implements OnInit, AfterViewInit {
       columnName: 'applicationName',
       columnLabel: 'Application Name',
     },
-    {
-      columnName: 'accessControlModel',
-      columnLabel: 'Access Control Mode',
-    },
   ];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay.map(column => column.columnName), 'edit', 'delete', 'expand'];
-  expandedElement: Application | null = null;
+  columnsToDisplayWithButtons = [...this.columnsToDisplay.map(column => column.columnName), 'edit', 'delete'];
 
   applicationService: ApplicationService = inject(ApplicationService);
 
@@ -72,6 +72,7 @@ export class ListApplicationComponent implements OnInit, AfterViewInit {
 
   editApplication(event: Event, application: Application) {
     event.stopPropagation();
+    this.router.navigate(['/applications/edit', application.applicationId]);
   }
 
   deleteApplication(event: Event, application: Application) {
@@ -83,5 +84,10 @@ export class ListApplicationComponent implements OnInit, AfterViewInit {
 
   parseString(others: string){
     return JSON.parse(others);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

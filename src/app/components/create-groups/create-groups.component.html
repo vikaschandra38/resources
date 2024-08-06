@@ -1,1 +1,52 @@
-<p>create-groups works!</p>
+<div class="sidenav-content-card">
+  <mat-card>
+    <mat-card-title>
+      <app-create-header [title]="'Create Group'"></app-create-header>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+          <div>
+            <p>Group Info</p>
+            <mat-form-field appearance="outline">
+              <mat-label>Group Name</mat-label>
+              <input matInput formControlName="groupName" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Group Manager</mat-label>
+              <input matInput formControlName="groupManager" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="groupEmail" required>
+            </mat-form-field>
+          </div>
+
+          <div formArrayName="groupMembers">
+            <p>Members</p>
+            <div class="member-grid">
+              @for (member of groupMembers.controls; track $index) {
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Member</mat-label>
+                  <input matInput [formControlName]="$index">
+                </mat-form-field>
+                <button mat-icon-button type="button" color="warn"
+                  (click)="removeMember($index)"><mat-icon>delete</mat-icon></button>
+              </div>
+              }
+            </div>
+            <button mat-flat-button type="button" (click)="addMember('')">Add Member</button>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" mat-raised-button color="warn" (click)="onReset()">Reset</button>
+          <button mat-flat-button color="primary" type="submit" [disabled]="!groupForm.valid">Submit</button>
+        </div>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</div>

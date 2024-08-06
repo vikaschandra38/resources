@@ -10,8 +10,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
+import { ListHeaderComponent } from "../../shared/list-header/list-header.component";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-list-users',
@@ -27,11 +30,13 @@ import { MatChipsModule } from '@angular/material/chips';
     ]),
   ],
   imports: [MatTableModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule, MatDividerModule, MatCardModule, RouterLink, MatPaginatorModule,
-    MatSortModule, MatChipsModule],
+    MatSortModule, MatChipsModule, ListHeaderComponent,MatFormFieldModule, MatInputModule],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.scss'
 })
 export class ListUsersComponent implements OnInit, AfterViewInit {
+  router: Router = inject(Router);
+
   dataSource = new MatTableDataSource<User>([]);;
   columnsToDisplay = [
     {
@@ -75,5 +80,15 @@ export class ListUsersComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }
+  }
+
+  editUser(event: Event, user: User) {
+    event.stopPropagation();
+    this.router.navigate(['/users/edit', user.userId]);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
