@@ -19,7 +19,7 @@ export class ApplicationFormComponent {
   formSubmit = output<Application>();
   router = inject(Router);
   applicationForm: FormGroup = this.fb.group({
-    applicationId: new FormControl<string>('', Validators.required),
+    applicationId: new FormControl<number | null>(null),
     applicationName: new FormControl<string>('', Validators.required),
     accessControlModel: new FormControl<string>('', Validators.required),
     policies: new FormControl<string>('', Validators.required),
@@ -34,6 +34,8 @@ export class ApplicationFormComponent {
   constructor () {
     this.state = this.router.getCurrentNavigation()?.extras.state;
     if (!!this.state && this.state['application']) {
+      this.applicationForm.get('applicationId')?.addValidators(Validators.required);
+      this.applicationForm.updateValueAndValidity();
       this.applicationForm.patchValue(this.state['application']);
     }
   }

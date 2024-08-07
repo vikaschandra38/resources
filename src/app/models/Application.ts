@@ -1,5 +1,5 @@
 export interface Application {
-  applicationId?: string;
+  applicationId?: number;
   applicationName: string;
   accessControlModel: string;
   policies: string;

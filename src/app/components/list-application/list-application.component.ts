@@ -86,9 +86,9 @@ export class ListApplicationComponent implements OnInit, AfterViewInit {
     this.dialogService.launchDialog().afterClosed().subscribe(result => {
       if (!result) return;
       this.applicationService.deleteApplication(application.applicationId!).subscribe(res => {
-        this.dataSource.data = this.dataSource.data.filter(application => application.applicationId !== res.applicationId);
+        this.dataSource.data = this.dataSource.data.filter(item => application.applicationId !== item.applicationId);
       });
-    })
+    });
   }
 
   parseString(others: string) {
